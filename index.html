@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navidad Mágica Familiar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              christmas: ['"Mountains of Christmas"', 'cursive'],
+              sans: ['Lato', 'sans-serif'],
+            },
+            colors: {
+              christmas: {
+                red: '#D42426',      // Bright Red from image
+                darkRed: '#A01012',  // Darker shade for accents
+                green: '#0F5132',    // Deep Green
+                lightGreen: '#D1E7DD',
+                gold: '#F8B229',
+                cream: '#FFF5F5',    // Very light pinkish cream
+                card: '#FFFFFF'
+              }
+            },
+            boxShadow: {
+              'card': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+              'glow': '0 0 15px rgba(248, 178, 41, 0.5)'
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #D42426;
+        background-image: radial-gradient(#E84C4E 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+      .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+</head>
+  <body class="text-slate-800 min-h-screen">
+    <div id="root"></div>
+  </body>
+</html>
