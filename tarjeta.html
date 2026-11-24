@@ -4,98 +4,120 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jp.vidzz · Tarjeta digital</title>
-<meta name="description" content="Tarjeta digital de jp.vidzz: contenido y estrategia con IA para asesores inmobiliarios, dueños de negocio y marcas personales.">
-<meta name="theme-color" content="#04060A">
+<meta name="description" content="Tarjeta digital de Johsef Palomino, creador audiovisual: videos, fotografía, drone y estrategia con IA.">
+<meta name="theme-color" content="#04070F">
+<meta property="og:title" content="jp.vidzz · Tarjeta digital">
+<meta property="og:description" content="Johsef Palomino, creador audiovisual. Videos, fotografía, drone y estrategia con IA.">
+<meta property="og:image" content="https://jp-vidzz.vercel.app/assets/og.jpg">
+<link rel="icon" href="assets/logo-blanco.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* Tarjeta de presentación: portada con ondas de audio, avatar con aro neón, acciones grandes. */
+  /* Tarjeta de presentación: portada con ondas de audio sobre el azul cobalto con grano,
+     logo de la cámara en el aro, acciones grandes. */
   :root{
-    --negro:#04060A;
-    --marino:#0A1930;
-    --marino-2:#10315F;
-    --blanco:#F4F8FC;
-    --humo:#A4B4CA;
-    --neon:#2CFF8A;
-    --grad:linear-gradient(120deg,#2CFF8A 0%,#00E0A8 55%,#00B8D4 100%);
-    --linea:rgba(255,255,255,.1);
+    --noche:#04070F;
+    --marino:#091A44;
+    --cobalto:#1454AD;
+    --azul:#1D5BF0;
+    --cerulo:#2E8BE6;
+    --aqua:#7FE3EE;
+    --blanco:#F3F7FF;
+    --humo:#A9B9D4;
+    --grad:linear-gradient(120deg,#2A6BFF 0%,#2E9BEA 55%,#7FE3EE 100%);
+    --linea:rgba(255,255,255,.12);
+    --grano:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     --display:"Bricolage Grotesque","Inter",system-ui,sans-serif;
     --texto:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{background:var(--negro)}
-  body{min-height:100svh;background:var(--negro);color:var(--blanco);font-family:var(--texto);line-height:1.55;-webkit-font-smoothing:antialiased;
+  html{background:var(--noche)}
+  body{min-height:100svh;background:var(--noche);color:var(--blanco);font-family:var(--texto);line-height:1.55;-webkit-font-smoothing:antialiased;
     display:flex;justify-content:center;padding:28px 16px 40px;overflow-x:hidden;position:relative}
-  :focus-visible{outline:3px solid var(--neon);outline-offset:3px;border-radius:12px}
+  :focus-visible{outline:3px solid var(--aqua);outline-offset:3px;border-radius:12px}
   button{font:inherit;color:inherit}
+  img{display:block;max-width:100%}
 
-  /* Aurora de fondo */
+  /* Fondo: malla azul con grano */
   .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
-  .aurora i:nth-child(1){width:420px;height:420px;background:var(--marino-2);left:-120px;top:-80px}
-  .aurora i:nth-child(2){width:360px;height:360px;background:#0b8f56;right:-140px;top:30%;opacity:.35;animation:drift 14s ease-in-out infinite alternate}
-  .aurora i:nth-child(3){width:340px;height:340px;background:#006f8f;left:10%;bottom:-140px;opacity:.35}
+  .aurora i{position:absolute;border-radius:50%;filter:blur(90px)}
+  .aurora i:nth-child(1){width:460px;height:460px;background:var(--azul);left:-160px;top:-120px;opacity:.55}
+  .aurora i:nth-child(2){width:380px;height:380px;background:var(--cobalto);right:-160px;top:32%;opacity:.55;animation:drift 16s ease-in-out infinite alternate}
+  .aurora i:nth-child(3){width:340px;height:340px;background:var(--cerulo);left:8%;bottom:-150px;opacity:.4}
+  .aurora::after{content:"";position:absolute;inset:0;background:var(--grano);opacity:.14;mix-blend-mode:overlay}
   @keyframes drift{to{transform:translate(-40px,60px)}}
 
   .card{position:relative;z-index:1;width:100%;max-width:440px;border-radius:32px;overflow:hidden;
-    background:linear-gradient(180deg,rgba(14,22,36,.88),rgba(4,6,10,.94));border:1px solid var(--linea);
-    box-shadow:0 40px 100px -30px rgba(44,255,138,.35),0 0 0 1px rgba(44,255,138,.08);
+    background:linear-gradient(180deg,rgba(10,18,40,.9),rgba(4,7,15,.95));border:1px solid var(--linea);
+    box-shadow:0 40px 100px -30px rgba(46,139,230,.6),0 0 0 1px rgba(127,227,238,.08);
     --mx:50%;--my:0%}
   .card::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-    background:radial-gradient(360px circle at var(--mx) var(--my),rgba(44,255,138,.14),transparent 60%)}
+    background:radial-gradient(360px circle at var(--mx) var(--my),rgba(127,227,238,.14),transparent 60%)}
   .card > *{position:relative;z-index:1}
 
   /* Portada */
-  .cover{height:170px;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--marino-2),var(--marino) 55%,var(--negro))}
+  .cover{height:178px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(70% 90% at 15% 20%,rgba(29,91,240,.95),transparent 70%),
+      radial-gradient(60% 80% at 90% 40%,rgba(11,42,122,.95),transparent 70%),
+      radial-gradient(50% 60% at 60% 110%,rgba(46,155,234,.8),transparent 70%),
+      var(--marino)}
+  .cover::after{content:"";position:absolute;inset:0;background:var(--grano);opacity:.22;mix-blend-mode:overlay}
   .cover svg{position:absolute;inset:0;width:100%;height:100%}
   .cover svg path{fill:none;stroke:url(#g);stroke-width:1.2}
-  .rec{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(244,248,252,.8);letter-spacing:.04em}
+  .rec{position:absolute;z-index:2;top:16px;left:18px;display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(243,247,255,.85);letter-spacing:.04em}
   .rec b{width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:blink 1.4s steps(2,jump-none) infinite}
   @keyframes blink{50%{opacity:.25}}
 
-  .id{padding:0 26px;text-align:center;margin-top:-52px}
-  .ring{width:104px;height:104px;border-radius:50%;padding:3px;margin:0 auto;background:var(--grad);box-shadow:0 0 50px -4px rgba(44,255,138,.7)}
-  .ring > div{width:100%;height:100%;border-radius:50%;background:var(--negro);display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:var(--display);font-weight:800;font-size:38px;letter-spacing:-.04em}
-  .ring > div span{color:var(--neon)}
-  .ring img{width:100%;height:100%;object-fit:cover;display:block}
+  .id{padding:0 26px;text-align:center;margin-top:-54px}
+  .ring{width:108px;height:108px;border-radius:50%;padding:3px;margin:0 auto;background:var(--grad);box-shadow:0 0 56px -4px rgba(46,155,234,.9)}
+  .ring > div{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 30% 25%,#14327a,#050a1c 70%);display:grid;place-items:center;overflow:hidden}
+  .ring img{width:68px;height:auto}
+  .ring img.foto{width:100%;height:100%;object-fit:cover}
   h1{font-family:var(--display);font-size:32px;font-weight:700;font-stretch:90%;letter-spacing:-.03em;margin-top:16px;line-height:1.05}
+  .handle{color:var(--aqua);font-size:14.5px;margin-top:4px}
   .role{color:var(--humo);margin-top:6px;font-size:15.5px}
-  .status{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:6px 14px;border-radius:999px;border:1px solid rgba(44,255,138,.35);background:rgba(44,255,138,.07);font-size:13px}
-  .status i{width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px var(--neon)}
+  .status{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:6px 14px;border-radius:999px;border:1px solid rgba(127,227,238,.4);background:rgba(46,139,230,.12);font-size:13px}
+  .status i{width:7px;height:7px;border-radius:50%;background:var(--aqua);box-shadow:0 0 10px var(--aqua)}
   .about{margin-top:18px;color:var(--humo);font-size:15px;text-wrap:pretty}
 
   .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:22px 22px 0}
-  .stats div{padding:12px 6px;border-radius:16px;border:1px solid var(--linea);background:rgba(255,255,255,.03);text-align:center}
+  .stats div{padding:12px 6px;border-radius:16px;border:1px solid var(--linea);background:rgba(255,255,255,.04);text-align:center}
   .stats b{display:block;font-family:var(--display);font-size:17px;font-weight:700;line-height:1.15}
   .stats span{font-size:11.5px;color:var(--humo);line-height:1.25;display:block;margin-top:3px}
 
   .actions{display:grid;gap:10px;padding:22px 22px 0}
-  .btn{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--blanco);min-height:54px;padding:12px 18px;border-radius:18px;border:1px solid var(--linea);background:rgba(255,255,255,.04);font-weight:600;font-size:15.5px;text-decoration:none;cursor:pointer;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
-  .btn:hover{transform:translateY(-2px);border-color:rgba(44,255,138,.7)}
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--blanco);min-height:54px;padding:12px 18px;border-radius:18px;border:1px solid var(--linea);background:rgba(255,255,255,.05);font-weight:600;font-size:15.5px;text-decoration:none;cursor:pointer;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+  .btn:hover{transform:translateY(-2px);border-color:rgba(127,227,238,.8)}
   .btn svg{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-  .btn-main{background:var(--grad);color:#03140B;border:0;min-height:60px;font-size:17px;box-shadow:0 12px 40px -10px rgba(44,255,138,.7)}
-  .btn-main:hover{box-shadow:0 18px 50px -10px rgba(44,255,138,.9);border-color:transparent}
+  .btn-main{background:#fff;color:#051233;border:0;min-height:60px;font-size:17px;box-shadow:0 12px 44px -10px rgba(46,155,234,.9)}
+  .btn-main svg{fill:currentColor;stroke:none}
+  .btn-main:hover{box-shadow:0 18px 56px -10px rgba(46,155,234,1);border-color:transparent}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
   .svc{padding:24px 22px 0}
   .svc h2{font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:12px;text-align:left}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chips span{padding:7px 14px;border-radius:999px;border:1px solid var(--linea);font-size:13.5px;background:rgba(255,255,255,.03)}
+  .chips span{padding:7px 14px;border-radius:999px;border:1px solid var(--linea);font-size:13.5px;background:rgba(255,255,255,.04)}
+
+  .work{padding:24px 22px 0}
+  .work h2{font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:12px}
+  .work p{color:var(--humo);font-size:14.5px}
 
   .foot{padding:26px 22px 24px;text-align:center;font-size:13px;color:var(--humo)}
-  .foot a{color:var(--neon);text-decoration:none}
+  .foot a{color:var(--aqua);text-decoration:none}
 
   /* QR */
-  dialog{margin:auto;border:1px solid rgba(44,255,138,.4);border-radius:28px;padding:28px;background:#0a1220;color:var(--blanco);width:min(340px,calc(100vw - 32px));text-align:center}
-  dialog::backdrop{background:rgba(2,4,8,.8);backdrop-filter:blur(6px)}
+  dialog{margin:auto;border:1px solid rgba(127,227,238,.45);border-radius:28px;padding:28px;background:#081029;color:var(--blanco);width:min(340px,calc(100vw - 32px));text-align:center}
+  dialog::backdrop{background:rgba(2,4,10,.82);backdrop-filter:blur(6px)}
   dialog h2{font-family:var(--display);font-size:22px;margin-bottom:6px}
   dialog p{color:var(--humo);font-size:14px;margin-bottom:18px}
-  #qr{display:grid;place-items:center;background:#fff;border-radius:20px;padding:16px;width:fit-content;margin:0 auto 18px;min-width:200px;min-height:200px}
+  #qr{display:grid;place-items:center;background:#fff;border-radius:20px;padding:16px;width:fit-content;margin:0 auto 18px;min-width:200px;min-height:200px;color:#33405a;font-size:13px}
   #qr img,#qr canvas{display:block;max-width:100%}
-  #qr-url{word-break:break-all;font-size:12px;color:#33405a}
+  #qr-url{word-break:break-all;font-size:12px;color:var(--humo)}
   dialog .btn{width:100%}
-  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:20;background:#0a1220;border:1px solid var(--neon);color:var(--blanco);padding:12px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:20;background:#081029;border:1px solid var(--aqua);color:var(--blanco);padding:12px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
   .toast.on{opacity:1;transform:translate(-50%,0)}
 
   @media (prefers-reduced-motion:reduce){
@@ -110,35 +132,36 @@
 
 <main class="card" id="card">
   <div class="cover" aria-hidden="true">
-    <svg viewBox="0 0 440 170" preserveAspectRatio="none">
-      <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#10315F"/><stop offset=".45" stop-color="#00B4E0"/><stop offset=".75" stop-color="#00E0A8"/><stop offset="1" stop-color="#2CFF8A"/></linearGradient></defs>
+    <svg viewBox="0 0 440 178" preserveAspectRatio="none">
+      <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#2A6BFF"/><stop offset=".45" stop-color="#6FA6FF"/><stop offset=".75" stop-color="#2E9BEA"/><stop offset="1" stop-color="#7FE3EE"/></linearGradient></defs>
       <g id="lines"></g>
     </svg>
     <div class="rec"><b></b><span>REC · tarjeta digital</span></div>
   </div>
 
   <header class="id">
-    <div class="ring"><div id="avatar">jp<span>.</span></div></div>
-    <h1>jp.vidzz</h1>
-    <p class="role">Creador de contenido y estratega con IA</p>
+    <div class="ring"><div id="avatar"><img src="assets/logo-blanco.png" alt="Logo de jp.vidzz" width="68" height="48"></div></div>
+    <h1>Johsef Palomino</h1>
+    <p class="handle">@jp.vidzz</p>
+    <p class="role">Creador audiovisual y estratega con IA</p>
     <span class="status"><i></i>Videos que conectan y venden</span>
-    <p class="about">Ayudo a asesores inmobiliarios, dueños de negocio y marcas personales a perder el miedo a la cámara y a crear contenido que los diferencia.</p>
+    <p class="about">Ayudo a desarrolladores, asesores inmobiliarios, dueños de negocio y marcas personales a perder el miedo a la cámara y a crear contenido que los diferencia.</p>
   </header>
 
   <div class="stats" aria-label="Datos clave">
-    <div><b>Desde $3,500</b><span>MXN al mes</span></div>
+    <div><b>Desde $6,440</b><span>MXN al mes</span></div>
     <div><b>IA</b><span>estrategia a tu medida</span></div>
-    <div><b>Orgánico + pagado</b><span>sabes qué usar</span></div>
+    <div><b>Video, foto y drone</b><span>todo en un lugar</span></div>
   </div>
 
   <div class="actions">
     <a class="btn btn-main" id="wa" href="#" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.3 7.9L3 21l1.2-4.5A9 9 0 1 1 21 12z"/></svg>Escribir por WhatsApp
+      <svg viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.2-1.4A9.9 9.9 0 1 0 12.04 2zm0 1.8a8.1 8.1 0 1 1-4.2 15l-.3-.2-3 .8.8-2.9-.2-.3A8.1 8.1 0 0 1 12.04 3.8zm-3 4.2c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4l-.5-.3-1.8-.9c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.4-1.8-.2-.3 0-.4.1-.6l.4-.5.3-.4c.1-.2 0-.3 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5z"/></svg>Escribir por WhatsApp
     </a>
     <div class="grid">
       <button class="btn" id="save" type="button"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Guardar contacto</button>
       <a class="btn" href="https://instagram.com/jp.vidzz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg>Instagram</a>
-      <a class="btn" href="index.html#cotizador"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h3M8 16h3M14 12h2M14 16h2"/></svg>Cotizar</a>
+      <a class="btn" href="index.html#planes"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h3M8 16h3M14 12h2M14 16h2"/></svg>Cotizar</a>
       <a class="btn" href="index.html#asistente"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>Asistente</a>
       <button class="btn" id="share" type="button"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg>Compartir</button>
       <button class="btn" id="qr-open" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3M21 14v.01M14 21h3M21 17v4"/></svg>Mi QR</button>
@@ -148,8 +171,13 @@
   <section class="svc">
     <h2>En qué te ayudo</h2>
     <div class="chips">
-      <span>Videos y reels</span><span>Guiones con IA</span><span>Estrategia orgánica</span><span>Anuncios</span><span>Acompañamiento en cámara</span><span>Marca personal</span>
+      <span>Contenido para redes</span><span>Producción de anuncios</span><span>Sesiones de fotografía</span><span>Video para eventos</span><span>Foto y video con drone</span><span>Producción de podcast</span>
     </div>
+  </section>
+
+  <section class="work">
+    <h2>Proyectos realizados</h2>
+    <p>Palmas, Aquince, Nara, Rocío, Luer, Zikil 19, Entre Parques, Silpro y más. <a href="index.html#proyectos" style="color:var(--aqua)">Ver proyectos</a></p>
   </section>
 
   <p class="foot">Valores: confianza, innovación, pasión y resiliencia.<br><a href="index.html">Ver la página completa</a></p>
@@ -168,7 +196,7 @@
 (() => {
   /* ====== CONFIGURACIÓN ====== */
   const WA_NUMBER = "529997470509";
-  const PHOTO_URL = ""; // Cuando llegue la foto o logo del Drive, pon aquí la ruta (ej. "assets/jp.jpg")
+  const PHOTO_URL = ""; // Cuando haya un retrato, pon aquí la ruta (ej. "assets/johsef.jpg") y reemplaza el logo del aro
 
   const $ = s => document.querySelector(s);
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -177,18 +205,18 @@
 
   $("#wa").href = waLink("Hola jp.vidzz, vi tu tarjeta y quiero información.");
 
-  if (PHOTO_URL) $("#avatar").innerHTML = `<img src="${PHOTO_URL}" alt="jp.vidzz">`;
+  if (PHOTO_URL) $("#avatar").innerHTML = `<img class="foto" src="${PHOTO_URL}" alt="Johsef Palomino">`;
 
   /* Ondas de la portada */
   const g = $("#lines"); let d = "";
   for (let i = 0; i < 16; i++) {
-    const k = i / 15, base = 40 + k * 120, amp = 6 + 22 * (1 - k);
+    const k = i / 15, base = 42 + k * 128, amp = 6 + 22 * (1 - k);
     let p = "";
     for (let x = 0; x <= 440; x += 8) {
       const y = base + Math.sin(x * .021 + i * .5) * amp * (.6 + .4 * Math.sin(x * .008));
       p += (x ? "L" : "M") + x + " " + y.toFixed(1);
     }
-    d += `<path d="${p}" opacity="${(.15 + .6 * k).toFixed(2)}"/>`;
+    d += `<path d="${p}" opacity="${(.18 + .6 * k).toFixed(2)}"/>`;
   }
   g.innerHTML = d;
 
@@ -207,12 +235,12 @@
     const site = location.origin && location.origin !== "null" ? location.origin : "";
     const vcf = [
       "BEGIN:VCARD", "VERSION:3.0",
-      "N:vidzz;jp;;;", "FN:jp.vidzz", "ORG:jp.vidzz",
-      "TITLE:Creador de contenido y estratega con IA",
+      "N:Palomino;Johsef;;;", "FN:Johsef Palomino (jp.vidzz)", "ORG:jp.vidzz",
+      "TITLE:Creador audiovisual y estratega con IA",
       `TEL;TYPE=CELL:+${WA_NUMBER}`,
       "URL;TYPE=Instagram:https://instagram.com/jp.vidzz",
       ...(site ? [`URL;TYPE=Web:${site}`] : []),
-      "NOTE:Contenido y estrategia con IA para asesores inmobiliarios y dueños de negocio",
+      "NOTE:Videos, fotografía, drone y estrategia con IA para desarrolladores, asesores inmobiliarios y marcas",
       "END:VCARD"
     ].join("\r\n");
     const url = URL.createObjectURL(new Blob([vcf], { type: "text/vcard;charset=utf-8" }));
@@ -245,7 +273,7 @@
     const s = document.createElement("script");
     s.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
     s.onload = () => {
-      new QRCode($("#qr"), { text: location.href, width: 200, height: 200, colorDark: "#04060A", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+      new QRCode($("#qr"), { text: location.href, width: 200, height: 200, colorDark: "#04070F", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
       qrDone = true;
     };
     s.onerror = () => { $("#qr").textContent = "No se pudo cargar el QR. Comparte el enlace de abajo."; };
