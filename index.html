@@ -134,15 +134,45 @@
   .ph figcaption b{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.01em}
   .ph figcaption span{color:var(--humo);font-size:13.5px;max-width:44ch}
 
-  /* Servicios: dos columnas desfasadas */
-  .svc-grid{display:grid;gap:36px 20px;grid-template-columns:1fr}
-  @media(min-width:760px){.svc-grid{grid-template-columns:repeat(2,1fr);gap:48px 24px}.svc-grid .ph:nth-child(even){margin-top:56px}}
+  /* Servicios: carrusel cinematográfico a pantalla ancha */
+  .reel{position:relative}
+  .reel-track{position:relative;display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:12px max(20px,calc((100% - min(78vw,780px))/2)) 24px;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab;outline-offset:-4px}
+  .reel-track::-webkit-scrollbar{display:none}
+  .reel-track.drag{cursor:grabbing;scroll-snap-type:none}
+  .slide{flex:0 0 min(78vw,780px);scroll-snap-align:center;position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;transform:scale(.92);opacity:.5;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .9s ease;background:#050912;user-select:none}
+  .slide.active{transform:none;opacity:1}
+  .slide .photo{position:absolute;inset:0;border-radius:0}
+  .slide .photo img{width:100%;height:100%;object-fit:cover;-webkit-user-drag:none;transition:filter .9s ease,transform 7s linear}
+  .slide .photo.live img{transform:scale(1.09)}
+  .slide .cap{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:96px clamp(18px,3vw,34px) clamp(18px,3vw,32px);background:linear-gradient(180deg,transparent,rgba(4,7,15,.92));pointer-events:none}
+  .slide .idx{display:block;font-size:13px;color:var(--aqua);margin-bottom:8px;font-variant-numeric:tabular-nums}
+  .slide h3{font-size:clamp(28px,4.6vw,50px);font-weight:700;font-stretch:88%;letter-spacing:-.03em;line-height:1}
+  .slide p{color:#C9D6EE;margin-top:10px;font-size:15px;max-width:46ch}
+  .slide .eq{right:24px;top:24px;bottom:auto;height:24px}
+  .slide .eq i{width:4px}
+  .reel-ui{display:flex;align-items:center;gap:18px;margin-top:6px}
+  .prog{flex:1;height:2px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden}
+  .prog i{display:block;height:100%;width:0;background:var(--grad);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+  #count{font-family:var(--display);font-variant-numeric:tabular-nums;font-size:15px;color:var(--humo);min-width:64px;text-align:right}
+  .arrow{width:46px;height:46px;border-radius:50%;border:1px solid var(--linea);background:rgba(255,255,255,.05);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .2s}
+  .arrow:hover{border-color:var(--aqua);transform:scale(1.06)}
+  .arrow svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  @media(max-width:640px){.slide{flex-basis:84vw;aspect-ratio:4/5}.reel-track{padding-inline:max(16px,calc((100% - 84vw)/2))}}
 
-  /* Proyectos: mosaico por columnas */
-  .proj{columns:3 280px;column-gap:20px}
-  .proj .ph{break-inside:avoid;margin:0 0 28px}
-  .proj .photo img{filter:grayscale(1) contrast(1.4) brightness(.88)}
-  .proj .photo:hover img,.proj .photo.live img{filter:none}
+  /* Proyectos: tira de película en dos filas que corren en sentidos opuestos */
+  .strip{display:grid;gap:18px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .strip-track{display:flex;gap:16px;width:max-content;animation:strip 70s linear infinite}
+  .strip-row.b .strip-track{animation-direction:reverse;animation-duration:85s}
+  .strip-row:hover .strip-track{animation-play-state:paused}
+  @keyframes strip{to{transform:translateX(-50%)}}
+  .pc{flex:none;margin:0}
+  .pc .photo{height:clamp(180px,24vw,280px);width:max-content;border-radius:6px}
+  .pc .photo img{height:100%;width:auto;max-width:none}
+  .pc .photo img{filter:grayscale(1) contrast(1.4) brightness(.88)}
+  .pc .photo:hover img,.pc .photo.live img{filter:none}
+  .pc figcaption{padding-top:10px;font-family:var(--display);font-weight:600;font-size:15px;color:var(--humo)}
+  .pc .eq{right:10px;bottom:10px;height:16px}
+  @media(hover:none){.strip .photo::before{opacity:.3}.strip .pc .photo img{filter:grayscale(.35) contrast(1.1)}}
 
   /* Cómo funciona */
   .steps{display:grid;gap:16px}
@@ -278,6 +308,10 @@
     .track,.rec b,.view em b,.radar::after,.lines i:last-child::after,.dots i,.msg,.summary{animation:none}
     .btn,.opt,.plan,.photo img,.photo::before,.photo::after{transition:none}
     .photo:hover .eq i,.photo.live .eq i{animation:none}
+    .strip{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
+    .strip-track{animation:none}.strip .dup{display:none}
+    .slide,.prog i{transition:none}
+    .slide .photo img{transition:filter .01s}
   }
 </style>
 </head>
@@ -360,15 +394,23 @@
       <div class="head">
         <span class="pill"><i></i>Qué hago</span>
         <h2>Todo lo que tu marca necesita frente a la cámara</h2>
-        <p class="sub">Del reel de cada semana a la producción completa de un evento.</p>
+        <p class="sub">Del reel de cada semana a la producción completa de un evento. Desliza o espera: avanza solo.</p>
       </div>
-      <div class="svc-grid">
-        <figure class="ph"><div class="photo"><img src="assets/servicio-contenido.webp" alt="Manos usando un teléfono" width="960" height="622" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Contenido para redes</b><span>Reels, videos cortos y fotos para Instagram, TikTok, YouTube y Facebook.</span></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/servicio-anuncios.webp" alt="Cámara con monitor grabando un anuncio" width="960" height="587" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Producción de anuncios</b><span>Videos cortos pensados para tus campañas de Facebook.</span></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/servicio-fotografia.webp" alt="Sesión de fotografía junto a una alberca" width="960" height="596" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Sesiones de fotografía</b><span>Fotos de producto y de perfil con intención.</span></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/servicio-eventos.webp" alt="Cámara grabando una conferencia" width="960" height="587" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Video para eventos</b><span>Cobertura de conferencias, lanzamientos y presentaciones.</span></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/servicio-drone.webp" alt="Vista aérea de la costa tomada con drone" width="960" height="640" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Foto y video con drone</b><span>Tomas aéreas de desarrollos, terrenos y paisajes.</span></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/servicio-podcast.webp" alt="Grabación de una entrevista en estudio" width="960" height="684" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Producción de podcast</b><span>Grabación y producción de entrevistas y conversaciones.</span></figcaption></figure>
+    </div>
+    <div class="reel" role="region" aria-roledescription="carrusel" aria-label="Servicios">
+      <div class="reel-track" id="reel-track" tabindex="0">
+        <article class="slide" aria-roledescription="slide" aria-label="1 de 6"><div class="photo"><img src="assets/servicio-contenido.webp" alt="Manos usando un teléfono" width="960" height="622" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="cap"><span class="idx">01 / 06</span><h3>Contenido para redes</h3><p>Reels, videos cortos y fotos para Instagram, TikTok, YouTube y Facebook.</p></div></article>
+        <article class="slide" aria-roledescription="slide" aria-label="2 de 6"><div class="photo"><img src="assets/servicio-anuncios.webp" alt="Cámara con monitor grabando un anuncio" width="960" height="587" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="cap"><span class="idx">02 / 06</span><h3>Producción de anuncios</h3><p>Videos cortos pensados para tus campañas de Facebook.</p></div></article>
+        <article class="slide" aria-roledescription="slide" aria-label="3 de 6"><div class="photo"><img src="assets/servicio-fotografia.webp" alt="Sesión de fotografía junto a una alberca" width="960" height="596" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="cap"><span class="idx">03 / 06</span><h3>Sesiones de fotografía</h3><p>Fotos de producto y de perfil con intención.</p></div></article>
+        <article class="slide" aria-roledescription="slide" aria-label="4 de 6"><div class="photo"><img src="assets/servicio-eventos.webp" alt="Cámara grabando una conferencia" width="960" height="587" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="cap"><span class="idx">04 / 06</span><h3>Video para eventos</h3><p>Cobertura de conferencias, lanzamientos y presentaciones.</p></div></article>
+        <article class="slide" aria-roledescription="slide" aria-label="5 de 6"><div class="photo"><img src="assets/servicio-drone.webp" alt="Vista aérea de la costa tomada con drone" width="960" height="640" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="cap"><span class="idx">05 / 06</span><h3>Foto y video con drone</h3><p>Tomas aéreas de desarrollos, terrenos y paisajes.</p></div></article>
+        <article class="slide" aria-roledescription="slide" aria-label="6 de 6"><div class="photo"><img src="assets/servicio-podcast.webp" alt="Grabación de una entrevista en estudio" width="960" height="684" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="cap"><span class="idx">06 / 06</span><h3>Producción de podcast</h3><p>Grabación y producción de entrevistas y conversaciones.</p></div></article>
+      </div>
+      <div class="wrap reel-ui">
+        <button class="arrow" type="button" id="prev-s" aria-label="Servicio anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="arrow" type="button" id="next-s" aria-label="Servicio siguiente"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+        <span id="count" aria-live="off">01 / 06</span>
       </div>
     </div>
   </section>
@@ -379,19 +421,12 @@
       <div class="head">
         <span class="pill"><i></i>Trabajos realizados</span>
         <h2>Marcas y desarrollos que ya pasaron por cámara</h2>
-        <p class="sub">Algunos de los proyectos en los que he participado.</p>
+        <p class="sub">Algunos de los proyectos en los que he participado. Pasa el cursor para pausar y ver el color.</p>
       </div>
-      <div class="proj">
-        <figure class="ph"><div class="photo"><img src="assets/proy-palmas.webp" alt="Fotograma del video de Palmas Nuevo Oriente" width="800" height="1267" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Palmas · Nuevo Oriente</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-aquince.webp" alt="Fotograma del video de Aquince Apartments" width="800" height="762" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Aquince · Apartments</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-zikil.webp" alt="Fotograma del video de Zikil 19 Urban Homes" width="800" height="630" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Zikil 19 · Urban Homes</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-luer.webp" alt="Fotograma del video de Luer Temozón" width="800" height="605" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Luer · Temozón</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-rocio.webp" alt="Fotograma del video de Rocío Country Living" width="800" height="693" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Rocío · Country Living</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-sedecons.webp" alt="Fotograma del video de Sedecons" width="800" height="542" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Sedecons</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-nara.webp" alt="Fotograma del video de Nara Temozón Village" width="800" height="458" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Nara · Temozón Village</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-entre-parques.webp" alt="Fotograma del video de Entre Parques Residencial" width="800" height="393" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Entre Parques · Residencial</b></figcaption></figure>
-        <figure class="ph"><div class="photo"><img src="assets/proy-silpro.webp" alt="Fotograma del video de Silpro 3R" width="800" height="533" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Silpro 3R</b></figcaption></figure>
-      </div>
+    </div>
+    <div class="strip">
+        <div class="strip-row a"><div class="strip-track"><figure class="pc"><div class="photo"><img src="assets/proy-palmas.webp" alt="Fotograma del video de Palmas · Nuevo Oriente" width="800" height="1267" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Palmas · Nuevo Oriente</figcaption></figure><figure class="pc"><div class="photo"><img src="assets/proy-zikil.webp" alt="Fotograma del video de Zikil 19 · Urban Homes" width="800" height="630" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Zikil 19 · Urban Homes</figcaption></figure><figure class="pc"><div class="photo"><img src="assets/proy-luer.webp" alt="Fotograma del video de Luer · Temozón" width="800" height="605" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Luer · Temozón</figcaption></figure><figure class="pc"><div class="photo"><img src="assets/proy-sedecons.webp" alt="Fotograma del video de Sedecons" width="800" height="542" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Sedecons</figcaption></figure><figure class="pc"><div class="photo"><img src="assets/proy-entre-parques.webp" alt="Fotograma del video de Entre Parques · Residencial" width="800" height="393" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Entre Parques · Residencial</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-palmas.webp" alt="" width="800" height="1267" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Palmas · Nuevo Oriente</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-zikil.webp" alt="" width="800" height="630" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Zikil 19 · Urban Homes</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-luer.webp" alt="" width="800" height="605" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Luer · Temozón</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-sedecons.webp" alt="" width="800" height="542" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Sedecons</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-entre-parques.webp" alt="" width="800" height="393" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Entre Parques · Residencial</figcaption></figure></div></div>
+        <div class="strip-row b"><div class="strip-track"><figure class="pc"><div class="photo"><img src="assets/proy-aquince.webp" alt="Fotograma del video de Aquince · Apartments" width="800" height="762" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Aquince · Apartments</figcaption></figure><figure class="pc"><div class="photo"><img src="assets/proy-nara.webp" alt="Fotograma del video de Nara · Temozón Village" width="800" height="458" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Nara · Temozón Village</figcaption></figure><figure class="pc"><div class="photo"><img src="assets/proy-rocio.webp" alt="Fotograma del video de Rocío · Country Living" width="800" height="693" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Rocío · Country Living</figcaption></figure><figure class="pc"><div class="photo"><img src="assets/proy-silpro.webp" alt="Fotograma del video de Silpro 3R" width="800" height="533" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Silpro 3R</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-aquince.webp" alt="" width="800" height="762" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Aquince · Apartments</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-nara.webp" alt="" width="800" height="458" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Nara · Temozón Village</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-rocio.webp" alt="" width="800" height="693" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Rocío · Country Living</figcaption></figure><figure class="pc dup" aria-hidden="true"><div class="photo"><img src="assets/proy-silpro.webp" alt="" width="800" height="533" decoding="async"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption>Silpro 3R</figcaption></figure></div></div>
     </div>
   </section>
 
@@ -678,8 +713,65 @@
   /* ====== Fotos: en pantallas táctiles el color se revela al llegar al centro ====== */
   if (!matchMedia("(hover:hover)").matches) {
     const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("live", e.isIntersecting)), { rootMargin: "-35% 0px -35% 0px" });
-    document.querySelectorAll(".photo").forEach(el => io.observe(el));
+    document.querySelectorAll(".strip .photo").forEach(el => io.observe(el));
   }
+
+  /* ====== Carrusel de servicios ====== */
+  const track = $("#reel-track"), slides = [...track.children];
+  const count = $("#count"), prog = $("#prog");
+  const pad = n => String(n).padStart(2, "0");
+  let cur = 0, timer = null, userUntil = 0, ticking = false;
+  function setActive(i) {
+    cur = i;
+    slides.forEach((sl, k) => { sl.classList.toggle("active", k === i); sl.querySelector(".photo").classList.toggle("live", k === i); });
+    count.textContent = pad(i + 1) + " / " + pad(slides.length);
+    prog.style.width = ((i + 1) / slides.length * 100) + "%";
+  }
+  function go(i, smooth = true) {
+    i = (i + slides.length) % slides.length;
+    const sl = slides[i];
+    track.scrollTo({ left: sl.offsetLeft - (track.clientWidth - sl.clientWidth) / 2, behavior: smooth && !reduce ? "smooth" : "auto" });
+    setActive(i);
+  }
+  function nearest() {
+    const c = track.scrollLeft + track.clientWidth / 2;
+    let best = 0, d = Infinity;
+    slides.forEach((sl, k) => { const dd = Math.abs(sl.offsetLeft + sl.clientWidth / 2 - c); if (dd < d) { d = dd; best = k; } });
+    return best;
+  }
+  track.addEventListener("scroll", () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => { ticking = false; const n = nearest(); if (n !== cur) setActive(n); });
+  }, { passive: true });
+  const touched = () => { userUntil = Date.now() + 9000; };
+  $("#prev-s").addEventListener("click", () => { touched(); go(cur - 1); });
+  $("#next-s").addEventListener("click", () => { touched(); go(cur + 1); });
+  track.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); touched(); go(cur + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); touched(); go(cur - 1); }
+  });
+  ["touchstart", "wheel", "focusin"].forEach(ev => track.addEventListener(ev, touched, { passive: true }));
+  // Arrastre con el mouse
+  let dragging = false, startX = 0, startL = 0, moved = 0;
+  track.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse") return;
+    dragging = true; moved = 0; startX = e.clientX; startL = track.scrollLeft;
+    track.classList.add("drag"); track.setPointerCapture(e.pointerId); touched();
+  });
+  track.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    moved = e.clientX - startX; track.scrollLeft = startL - moved;
+  });
+  const endDrag = () => { if (!dragging) return; dragging = false; track.classList.remove("drag"); go(nearest()); };
+  track.addEventListener("pointerup", endDrag); track.addEventListener("pointercancel", endDrag);
+  // Avance automático (solo cuando la sección está visible y nadie la está usando)
+  if (!reduce) {
+    let visible = false;
+    new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { threshold: .35 }).observe(track);
+    timer = setInterval(() => { if (visible && !dragging && Date.now() > userUntil && !track.matches(":hover")) go(cur + 1); }, 4800);
+  }
+  setActive(0);
+  addEventListener("resize", () => go(cur, false));
 
   /* ====== Barras de onda (bento) ====== */
   const wave = $("#wave");
