@@ -112,15 +112,37 @@
   .grid3{display:grid;gap:16px}
   @media(min-width:820px){.grid3{grid-template-columns:repeat(3,1fr)}}
 
-  /* Servicios */
-  .svc-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
-  @media(min-width:900px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
-  .svc{border-radius:22px;overflow:hidden;border:1px solid var(--linea);background:var(--panel);display:flex;flex-direction:column;transition:transform .25s ease,border-color .25s ease}
-  .svc:hover{transform:translateY(-4px);border-color:rgba(127,227,238,.5)}
-  .svc img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
-  .svc div{padding:16px 18px 20px}
-  .svc h3{font-size:17px}
-  .svc p{color:var(--humo);font-size:14px;margin-top:4px}
+  /* Fotos: dúo azul con grano y líneas de barrido. Al pasar el cursor (o al llegar al centro
+     de la pantalla en celular) se revela el color y las barras laten como un ecualizador. */
+  .photo{position:relative;overflow:hidden;border-radius:6px;background:#050912;isolation:isolate}
+  .photo img{width:100%;height:auto;display:block;filter:grayscale(1) contrast(1.15) brightness(.95);transition:filter .7s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+  .photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:multiply;transition:opacity .7s ease;background:linear-gradient(165deg,#3A78FF 0%,#1454AD 55%,#091A44 100%)}
+  .photo::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.55;mix-blend-mode:overlay;transition:opacity .7s ease;background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px),var(--grano)}
+  .photo:hover img,.photo.live img{filter:none;transform:scale(1.04)}
+  .photo:hover::before,.photo.live::before{opacity:0}
+  .photo:hover::after,.photo.live::after{opacity:.25}
+  .eq{position:absolute;right:14px;bottom:14px;z-index:3;display:flex;align-items:flex-end;gap:3px;height:20px}
+  .eq i{width:3px;height:100%;border-radius:2px;background:#fff;transform:scaleY(.3);transform-origin:bottom}
+  .eq i:nth-child(2){transform:scaleY(.6)}.eq i:nth-child(3){transform:scaleY(.45)}.eq i:nth-child(4){transform:scaleY(.8)}
+  .photo:hover .eq i,.photo.live .eq i{animation:eq .5s ease-in-out infinite alternate}
+  .photo:hover .eq i:nth-child(2),.photo.live .eq i:nth-child(2){animation-duration:.38s;animation-delay:-.15s}
+  .photo:hover .eq i:nth-child(3),.photo.live .eq i:nth-child(3){animation-duration:.62s;animation-delay:-.3s}
+  .photo:hover .eq i:nth-child(4),.photo.live .eq i:nth-child(4){animation-duration:.45s;animation-delay:-.05s}
+  @keyframes eq{from{transform:scaleY(.18)}to{transform:scaleY(1)}}
+  .ph{margin:0}
+  .ph figcaption{display:flex;flex-direction:column;gap:2px;padding:12px 2px 0}
+  .ph figcaption b{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.01em}
+  .ph figcaption span{color:var(--humo);font-size:13.5px;max-width:44ch}
+
+  /* Servicios: dos columnas desfasadas */
+  .svc-grid{display:grid;gap:36px 20px;grid-template-columns:1fr}
+  @media(min-width:760px){.svc-grid{grid-template-columns:repeat(2,1fr);gap:48px 24px}.svc-grid .ph:nth-child(even){margin-top:56px}}
+
+  /* Proyectos: mosaico por columnas */
+  .proj{columns:3 280px;column-gap:20px}
+  .proj .ph{break-inside:avoid;margin:0 0 28px}
+  .proj .photo img{filter:grayscale(1) contrast(1.4) brightness(.88)}
+  .proj .photo:hover img,.proj .photo.live img{filter:none}
 
   /* Cómo funciona */
   .steps{display:grid;gap:16px}
@@ -145,12 +167,6 @@
   .bars{display:flex;align-items:flex-end;gap:9px;height:96px}
   .bars i{width:18px;border-radius:5px 5px 2px 2px;background:var(--grad);opacity:.95}
   .bars i:nth-child(1){height:26%}.bars i:nth-child(2){height:42%}.bars i:nth-child(3){height:38%}.bars i:nth-child(4){height:68%}.bars i:nth-child(5){height:100%}
-
-  /* Proyectos (columnas tipo mosaico) */
-  .proj{columns:3 280px;column-gap:16px}
-  .proj figure{break-inside:avoid;margin:0 0 16px;border-radius:20px;overflow:hidden;position:relative;border:1px solid var(--linea);background:#0a1020}
-  .proj img{width:100%;height:auto;transition:transform .5s ease}
-  .proj figure:hover img{transform:scale(1.04)}  .proj figcaption{padding:12px 16px 14px;font-family:var(--display);font-weight:600;font-size:16px}
 
   /* Lo que recibes */
   .bento{display:grid;gap:16px}
@@ -260,7 +276,8 @@
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .track,.rec b,.view em b,.radar::after,.lines i:last-child::after,.dots i,.msg,.summary{animation:none}
-    .btn,.opt,.plan,.svc,.proj img{transition:none}
+    .btn,.opt,.plan,.photo img,.photo::before,.photo::after{transition:none}
+    .photo:hover .eq i,.photo.live .eq i{animation:none}
   }
 </style>
 </head>
@@ -346,12 +363,12 @@
         <p class="sub">Del reel de cada semana a la producción completa de un evento.</p>
       </div>
       <div class="svc-grid">
-        <article class="svc"><img src="assets/servicio-contenido.webp" alt="Manos usando un teléfono, con el texto Crea contenido para tus redes sociales" width="720" height="720" loading="lazy"><div><h3>Contenido para redes</h3><p>Reels, videos cortos y fotos para Instagram, TikTok, YouTube y Facebook.</p></div></article>
-        <article class="svc"><img src="assets/servicio-anuncios.webp" alt="Cámara y monitor grabando un anuncio, con el texto Producción de anuncios" width="720" height="720" loading="lazy"><div><h3>Producción de anuncios</h3><p>Videos cortos pensados para tus campañas de Facebook.</p></div></article>
-        <article class="svc"><img src="assets/servicio-fotografia.webp" alt="Sesión de fotografía junto a una alberca, con el texto Sesiones de fotografía" width="720" height="720" loading="lazy"><div><h3>Sesiones de fotografía</h3><p>Fotos de producto y de perfil con intención.</p></div></article>
-        <article class="svc"><img src="assets/servicio-eventos.webp" alt="Cámara grabando una conferencia, con el texto Video para eventos" width="720" height="720" loading="lazy"><div><h3>Video para eventos</h3><p>Cobertura de conferencias, lanzamientos y presentaciones.</p></div></article>
-        <article class="svc"><img src="assets/servicio-drone.webp" alt="Vista aérea de la costa tomada con drone, con el texto Foto y video con drone" width="720" height="720" loading="lazy"><div><h3>Foto y video con drone</h3><p>Tomas aéreas de desarrollos, terrenos y paisajes.</p></div></article>
-        <article class="svc"><img src="assets/servicio-podcast.webp" alt="Grabación de una entrevista en estudio, con el texto Producción de podcast" width="720" height="720" loading="lazy"><div><h3>Producción de podcast</h3><p>Grabación y producción de entrevistas y conversaciones.</p></div></article>
+        <figure class="ph"><div class="photo"><img src="assets/servicio-contenido.webp" alt="Manos usando un teléfono" width="960" height="622" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Contenido para redes</b><span>Reels, videos cortos y fotos para Instagram, TikTok, YouTube y Facebook.</span></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/servicio-anuncios.webp" alt="Cámara con monitor grabando un anuncio" width="960" height="587" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Producción de anuncios</b><span>Videos cortos pensados para tus campañas de Facebook.</span></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/servicio-fotografia.webp" alt="Sesión de fotografía junto a una alberca" width="960" height="596" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Sesiones de fotografía</b><span>Fotos de producto y de perfil con intención.</span></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/servicio-eventos.webp" alt="Cámara grabando una conferencia" width="960" height="587" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Video para eventos</b><span>Cobertura de conferencias, lanzamientos y presentaciones.</span></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/servicio-drone.webp" alt="Vista aérea de la costa tomada con drone" width="960" height="640" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Foto y video con drone</b><span>Tomas aéreas de desarrollos, terrenos y paisajes.</span></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/servicio-podcast.webp" alt="Grabación de una entrevista en estudio" width="960" height="684" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Producción de podcast</b><span>Grabación y producción de entrevistas y conversaciones.</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -365,15 +382,15 @@
         <p class="sub">Algunos de los proyectos en los que he participado.</p>
       </div>
       <div class="proj">
-        <figure><img src="assets/proy-palmas.webp" alt="Fotograma del video de Palmas Nuevo Oriente" width="800" height="1267" loading="lazy"><figcaption>Palmas · Nuevo Oriente</figcaption></figure>
-        <figure><img src="assets/proy-aquince.webp" alt="Fotograma del video de Aquince Apartments Mérida" width="800" height="762" loading="lazy"><figcaption>Aquince · Apartments</figcaption></figure>
-        <figure><img src="assets/proy-zikil.webp" alt="Fotograma del video de Zikil 19 Urban Homes" width="800" height="630" loading="lazy"><figcaption>Zikil 19 · Urban Homes</figcaption></figure>
-        <figure><img src="assets/proy-luer.webp" alt="Fotograma del video de Luer Temozón" width="800" height="605" loading="lazy"><figcaption>Luer · Temozón</figcaption></figure>
-        <figure><img src="assets/proy-rocio.webp" alt="Fotograma del video de Rocío Country Living" width="800" height="693" loading="lazy"><figcaption>Rocío · Country Living</figcaption></figure>
-        <figure><img src="assets/proy-sedecons.webp" alt="Fotograma del video de Sedecons" width="800" height="542" loading="lazy"><figcaption>Sedecons</figcaption></figure>
-        <figure><img src="assets/proy-nara.webp" alt="Fotograma del video de Nara Temozón Village" width="800" height="458" loading="lazy"><figcaption>Nara · Temozón Village</figcaption></figure>
-        <figure><img src="assets/proy-entre-parques.webp" alt="Fotograma del video de Entre Parques Residencial" width="800" height="393" loading="lazy"><figcaption>Entre Parques · Residencial</figcaption></figure>
-        <figure><img src="assets/proy-silpro.webp" alt="Fotograma del video de Silpro 3R" width="800" height="533" loading="lazy"><figcaption>Silpro 3R</figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-palmas.webp" alt="Fotograma del video de Palmas Nuevo Oriente" width="800" height="1267" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Palmas · Nuevo Oriente</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-aquince.webp" alt="Fotograma del video de Aquince Apartments" width="800" height="762" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Aquince · Apartments</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-zikil.webp" alt="Fotograma del video de Zikil 19 Urban Homes" width="800" height="630" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Zikil 19 · Urban Homes</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-luer.webp" alt="Fotograma del video de Luer Temozón" width="800" height="605" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Luer · Temozón</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-rocio.webp" alt="Fotograma del video de Rocío Country Living" width="800" height="693" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Rocío · Country Living</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-sedecons.webp" alt="Fotograma del video de Sedecons" width="800" height="542" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Sedecons</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-nara.webp" alt="Fotograma del video de Nara Temozón Village" width="800" height="458" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Nara · Temozón Village</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-entre-parques.webp" alt="Fotograma del video de Entre Parques Residencial" width="800" height="393" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Entre Parques · Residencial</b></figcaption></figure>
+        <figure class="ph"><div class="photo"><img src="assets/proy-silpro.webp" alt="Fotograma del video de Silpro 3R" width="800" height="533" loading="lazy"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><figcaption><b>Silpro 3R</b></figcaption></figure>
       </div>
     </div>
   </section>
@@ -656,6 +673,12 @@
     hero.addEventListener("pointermove", e => { mx = e.clientX - hero.getBoundingClientRect().left; });
     hero.addEventListener("pointerleave", () => { mx = -999; });
     requestAnimationFrame(loop);
+  }
+
+  /* ====== Fotos: en pantallas táctiles el color se revela al llegar al centro ====== */
+  if (!matchMedia("(hover:hover)").matches) {
+    const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("live", e.isIntersecting)), { rootMargin: "-35% 0px -35% 0px" });
+    document.querySelectorAll(".photo").forEach(el => io.observe(el));
   }
 
   /* ====== Barras de onda (bento) ====== */
