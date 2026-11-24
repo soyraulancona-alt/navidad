@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jp.vidzz · Tarjeta digital</title>
+<meta name="description" content="Tarjeta digital de jp.vidzz: contenido y estrategia con IA para vender más en redes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --negro:#07080B;
+    --marino:#0B1F3A;
+    --marino-2:#13305A;
+    --blanco:#FFFFFF;
+    --humo:#B9C4D6;
+    --acento:#8DB8FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--negro);color:var(--blanco);
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:24px 16px;line-height:1.5;
+    background:radial-gradient(900px 500px at 50% -10%, var(--marino-2) 0%, transparent 60%),var(--negro);
+  }
+  :focus-visible{outline:3px solid var(--acento);outline-offset:3px;border-radius:8px}
+  .card{
+    width:100%;max-width:400px;border-radius:24px;overflow:hidden;
+    background:#0E1523;border:1px solid #1E2D47;
+    box-shadow:0 40px 80px -30px rgba(11,31,58,.9);
+  }
+  .cover{
+    height:150px;background:linear-gradient(160deg,var(--marino) 0%,var(--negro) 100%);
+    padding:24px;display:flex;flex-direction:column;justify-content:flex-end;
+    position:relative;
+  }
+  .cover .tag{position:absolute;top:20px;left:24px;font-size:13px;color:var(--humo)}
+  .logo{font-weight:800;font-size:30px;letter-spacing:-.02em}
+  .logo span{color:var(--acento)}
+  .body{padding:24px}
+  h1{font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .role{color:var(--humo);margin-top:4px;font-size:15px}
+  .about{margin-top:16px;color:var(--humo);font-size:15px}
+  .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .tags span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid #2A3A56;color:var(--humo)}
+  .actions{margin-top:24px;display:grid;gap:10px}
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    min-height:52px;padding:12px 20px;border-radius:14px;
+    font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;
+    border:1px solid #2A3A56;background:transparent;color:var(--blanco);font:inherit;font-weight:700;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);border-color:var(--acento)}
+  .btn-wa{background:#25D366;color:#06210F;border-color:transparent}
+  .btn-main{background:var(--blanco);color:var(--negro);border-color:transparent}
+  .foot{margin-top:20px;text-align:center;font-size:13px;color:var(--humo)}
+  .foot a{color:var(--acento)}
+  @media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="cover">
+    <div class="tag">Tarjeta digital</div>
+    <div class="logo">jp<span>.</span>vidzz</div>
+  </div>
+  <div class="body">
+    <h1>jp.vidzz</h1>
+    <p class="role">Creador de contenido y estratega con IA</p>
+    <p class="about">Ayudo a asesores inmobiliarios, dueños de negocio y emprendedores a perder el miedo a la cámara y a crear contenido que vende.</p>
+    <div class="tags">
+      <span>Contenido</span>
+      <span>Estrategia con IA</span>
+      <span>Redes sociales</span>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-wa" id="wa" href="#" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <button class="btn btn-main" id="save" type="button">Guardar contacto</button>
+      <a class="btn" href="index.html">Ver landing y diagnóstico</a>
+      <a class="btn" href="https://instagram.com/jp.vidzz" target="_blank" rel="noopener">Instagram @jp.vidzz</a>
+    </div>
+
+    <p class="foot">Tarjeta de <a href="index.html">jp.vidzz</a></p>
+  </div>
+</main>
+
+<script>
+  /* Mismo número que index.html. Reemplazar por el WhatsApp real (código de país + número). */
+  const WA_NUMBER = "529997470509";
+  document.getElementById("wa").href =
+    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hola jp.vidzz, vi tu tarjeta y quiero información.")}`;
+
+  // Genera un contacto vCard para guardar en el teléfono
+  document.getElementById("save").addEventListener("click", () => {
+    const vcf = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "N:vidzz;jp;;;",
+      "FN:jp.vidzz",
+      "ORG:jp.vidzz",
+      "TITLE:Creador de contenido y estratega con IA",
+      `TEL;TYPE=CELL:+${WA_NUMBER}`,
+      "URL:https://instagram.com/jp.vidzz",
+      "NOTE:Contenido y estrategia con IA para asesores inmobiliarios y dueños de negocio",
+      "END:VCARD"
+    ].join("\r\n");
+    const blob = new Blob([vcf], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "jp-vidzz.vcf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+</script>
+</body>
+</html>

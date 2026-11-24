@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jp.vidzz · Pierde el miedo a la cámara y vende más</title>
+<meta name="description" content="Creo contenido y estrategia con IA para asesores inmobiliarios, dueños de negocio y emprendedores. Agenda tu diagnóstico por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --negro:#07080B;
+    --marino:#0B1F3A;
+    --marino-2:#13305A;
+    --blanco:#FFFFFF;
+    --humo:#B9C4D6;
+    --acento:#8DB8FF;
+    --radio:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--negro);
+    color:var(--blanco);
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--acento);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+  /* Nav */
+  header.top{
+    position:sticky;top:0;z-index:10;
+    background:rgba(7,8,11,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid #1B2435;
+  }
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+  .logo span{color:var(--acento)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:48px;padding:12px 22px;border-radius:999px;
+    font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .btn-primary{background:var(--blanco);color:var(--negro)}
+  .btn-primary:hover{transform:translateY(-2px);background:#E8EEF8}
+  .btn-ghost{background:transparent;color:var(--blanco);border:1px solid #2A3A56}
+  .btn-ghost:hover{border-color:var(--acento)}
+  .btn-wa{background:#25D366;color:#06210F}
+  .btn-wa:hover{transform:translateY(-2px);background:#2EE070}
+  .btn-sm{min-height:44px;padding:10px 18px;font-size:15px}
+
+  /* Hero */
+  .hero{padding:72px 0 56px;position:relative;overflow:hidden;
+    background:radial-gradient(1200px 500px at 80% -10%, var(--marino-2) 0%, transparent 60%),var(--negro);}
+  .hero-grid{display:grid;gap:40px;align-items:center}
+  @media(min-width:880px){.hero-grid{grid-template-columns:1.15fr .85fr}}
+  h1{font-size:clamp(34px,5.4vw,58px);line-height:1.08;letter-spacing:-.03em;font-weight:800;max-width:18ch}
+  .lead{margin-top:20px;font-size:clamp(17px,2vw,20px);color:var(--humo);max-width:52ch}
+  .cta-row{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
+  .micro{margin-top:16px;font-size:14px;color:var(--humo)}
+
+  /* Tarjeta interactiva (momento memorable) */
+  .stage{perspective:900px;display:flex;justify-content:center}
+  .mini-card{
+    width:min(320px,86vw);aspect-ratio:1.6/1;border-radius:20px;padding:24px;
+    background:linear-gradient(160deg,var(--marino) 0%,var(--negro) 100%);
+    border:1px solid #1E2D47;box-shadow:0 30px 60px -20px rgba(11,31,58,.8);
+    transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+    transition:transform .25s ease;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .mini-card .handle{font-weight:800;font-size:28px;letter-spacing:-.02em}
+  .mini-card .handle span{color:var(--acento)}
+  .mini-card .role{font-size:14px;color:var(--humo)}
+  .mini-card .bar{height:3px;width:56px;border-radius:3px;background:var(--acento)}
+  @media (prefers-reduced-motion:reduce){.mini-card{transition:none}}
+
+  /* Secciones */
+  section{padding:72px 0;border-top:1px solid #151D2D}
+  h2{font-size:clamp(26px,3.6vw,38px);line-height:1.15;letter-spacing:-.02em;font-weight:800;max-width:24ch}
+  .sub{margin-top:12px;color:var(--humo);max-width:60ch}
+
+  .pains{margin-top:36px;display:grid;gap:16px}
+  @media(min-width:760px){.pains{grid-template-columns:repeat(3,1fr)}}
+  .pain{background:#0E1523;border:1px solid #1B2435;border-radius:var(--radio);padding:24px}
+  .pain h3{font-size:18px;margin-bottom:8px}
+  .pain p{color:var(--humo);font-size:15px}
+
+  .who{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
+  .who span{padding:8px 14px;border-radius:999px;border:1px solid #2A3A56;font-size:15px;color:var(--humo)}
+
+  .steps{margin-top:36px;display:grid;gap:20px}
+  @media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{padding-top:20px;border-top:2px solid var(--marino-2)}
+  .step p{margin-top:8px;color:var(--humo);font-size:15px}
+
+  .prices{margin-top:36px;display:grid;gap:16px}
+  @media(min-width:760px){.prices{grid-template-columns:1fr 1fr}}
+  .price{background:#0E1523;border:1px solid #1B2435;border-radius:var(--radio);padding:28px}
+  .price .amount{font-size:34px;font-weight:800;margin:8px 0}
+  .price p{color:var(--humo);font-size:15px}
+
+  /* Funnel */
+  .funnel{margin-top:36px;background:#0E1523;border:1px solid #1B2435;border-radius:20px;padding:28px}
+  @media(min-width:760px){.funnel{padding:40px}}
+  .progress{height:4px;background:#1B2435;border-radius:4px;overflow:hidden}
+  .progress i{display:block;height:100%;width:0;background:var(--acento);transition:width .35s ease}
+  .q{display:none;margin-top:28px}
+  .q.on{display:block}
+  .q h3{font-size:22px;margin-bottom:6px}
+  .q .hint{color:var(--humo);font-size:15px;margin-bottom:18px}
+  .opts{display:grid;gap:10px}
+  @media(min-width:640px){.opts{grid-template-columns:1fr 1fr}}
+  .opt{
+    min-height:52px;padding:12px 16px;border-radius:12px;text-align:left;cursor:pointer;
+    background:var(--negro);color:var(--blanco);border:1px solid #2A3A56;font:inherit;font-size:16px;
+  }
+  .opt:hover{border-color:var(--acento)}
+  .opt[aria-pressed="true"]{background:var(--marino-2);border-color:var(--acento)}
+  .nav-q{margin-top:24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .done{display:none;margin-top:28px;text-align:left}
+  .done.on{display:block}
+  .done p{color:var(--humo);margin-bottom:20px}
+
+  .faq{margin-top:36px;display:grid;gap:12px;max-width:760px}
+  details{background:#0E1523;border:1px solid #1B2435;border-radius:12px;padding:18px 20px}
+  summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+  details p{margin-top:8px;color:var(--humo);font-size:15px}
+
+  .final{text-align:left;padding:72px 0}
+  .final .cta-row{margin-top:24px}
+
+  footer{border-top:1px solid #151D2D;padding:28px 0;color:var(--humo);font-size:14px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio">jp<span>.</span>vidzz</a>
+    <a class="btn btn-wa btn-sm" data-wa="general" href="#">Diagnóstico gratis</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Tu cara en cámara, con estrategia, para vender más.</h1>
+        <p class="lead">Creo contenido y diseño la estrategia con IA para asesores inmobiliarios, dueños de negocio y emprendedores. Sin guiones genéricos: contenido que se parece a ti y que la gente recuerda.</p>
+        <div class="cta-row">
+          <a class="btn btn-wa" data-wa="hero" href="#">Quiero mi diagnóstico por WhatsApp</a>
+          <a class="btn btn-ghost" href="#como">Ver cómo funciona</a>
+        </div>
+        <p class="micro">Respuesta por WhatsApp. Te digo qué contenido te conviene antes de invertir un peso.</p>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <div class="mini-card" id="tilt">
+          <div>
+            <div class="handle">jp<span>.</span>vidzz</div>
+            <div class="role">Contenido y estrategia con IA</div>
+          </div>
+          <div class="bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEMA -->
+  <section>
+    <div class="wrap">
+      <h2>¿Te pasa alguno de estos tres?</h2>
+      <p class="sub">Sabes que tienes que estar en redes, pero no sabes cómo empezar.</p>
+      <div class="pains">
+        <article class="pain">
+          <h3>Falta de tiempo y de ideas</h3>
+          <p>Te sientas a grabar y no sale nada. Cada semana se repite el mismo bloqueo.</p>
+        </article>
+        <article class="pain">
+          <h3>No sabes qué estrategia usar</h3>
+          <p>Orgánico, pagado, qué subir y cuándo. Mucha información y ninguna claridad.</p>
+        </article>
+        <article class="pain">
+          <h3>Miedo a salir en cámara</h3>
+          <p>Te da pena mostrarte y terminas con videos genéricos que no venden.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFORMACIÓN -->
+  <section id="como">
+    <div class="wrap">
+      <h2>Aprendes a grabarte natural y a vender con tu contenido.</h2>
+      <p class="sub">No solo creo tus videos. Te acompaño para que te sientas cómodo frente a la cámara y para que cada publicación tenga un objetivo.</p>
+      <div class="steps">
+        <div class="step">
+          <h3>1. Diagnóstico</h3>
+          <p>Revisamos tu negocio, tu cliente ideal y lo que hoy te frena.</p>
+        </div>
+        <div class="step">
+          <h3>2. Ideas y guion</h3>
+          <p>Definimos qué decir en cada video, con una estrategia orgánica y, si aplica, pagada.</p>
+        </div>
+        <div class="step">
+          <h3>3. Grabación y acompañamiento</h3>
+          <p>Te guío para grabarte de forma natural, sin el clásico video genérico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A QUIÉN -->
+  <section>
+    <div class="wrap">
+      <h2>Trabajo con quien quiere vender mejor en redes.</h2>
+      <div class="who">
+        <span>Asesores inmobiliarios</span>
+        <span>Gerentes de ventas</span>
+        <span>Desarrolladores</span>
+        <span>Dueños de inmobiliarias</span>
+        <span>Dueños de negocio</span>
+        <span>Emprendedores</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section>
+    <div class="wrap">
+      <h2>Una inversión, no un gasto.</h2>
+      <p class="sub">Los paquetes se ajustan a tu punto de partida. El precio exacto lo confirmamos en tu diagnóstico.</p>
+      <div class="prices">
+        <div class="price">
+          <p>Desde</p>
+          <div class="amount">$3,500 MXN</div>
+          <p>Para empezar a grabarte y tener una estrategia clara.</p>
+        </div>
+        <div class="price">
+          <p>Hasta</p>
+          <div class="amount">$14,000 MXN</div>
+          <p>Para estrategia completa, producción y acompañamiento a fondo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNNEL -->
+  <section id="diagnostico">
+    <div class="wrap">
+      <h2>Responde 3 preguntas y te escribo con tu diagnóstico.</h2>
+      <p class="sub">Toma menos de un minuto. Al terminar se abre WhatsApp con tus respuestas ya escritas.</p>
+
+      <div class="funnel" id="funnel">
+        <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+        <div class="q on" data-step="0">
+          <h3>¿Cuál es tu giro?</h3>
+          <p class="hint">Elige el que más se parezca.</p>
+          <div class="opts" role="group" aria-label="Giro">
+            <button class="opt" type="button" data-key="giro" data-val="Asesor inmobiliario">Asesor inmobiliario</button>
+            <button class="opt" type="button" data-key="giro" data-val="Dueño de inmobiliaria o gerente de ventas">Inmobiliaria o gerencia</button>
+            <button class="opt" type="button" data-key="giro" data-val="Dueño de negocio">Dueño de negocio</button>
+            <button class="opt" type="button" data-key="giro" data-val="Emprendedor o marca personal">Emprendedor o marca personal</button>
+          </div>
+        </div>
+
+        <div class="q" data-step="1">
+          <h3>¿Qué te frena hoy?</h3>
+          <p class="hint">Elige el principal.</p>
+          <div class="opts" role="group" aria-label="Freno">
+            <button class="opt" type="button" data-key="freno" data-val="Falta de tiempo y de ideas">Falta de tiempo y de ideas</button>
+            <button class="opt" type="button" data-key="freno" data-val="No sé qué estrategia usar">No sé qué estrategia usar</button>
+            <button class="opt" type="button" data-key="freno" data-val="Me da pena salir en cámara">Me da pena salir en cámara</button>
+          </div>
+        </div>
+
+        <div class="q" data-step="2">
+          <h3>¿Qué inversión tienes contemplada?</h3>
+          <p class="hint">Rango mensual aproximado.</p>
+          <div class="opts" role="group" aria-label="Inversión">
+            <button class="opt" type="button" data-key="inversion" data-val="Hasta $3,500 MXN">Hasta $3,500 MXN</button>
+            <button class="opt" type="button" data-key="inversion" data-val="$3,500 a $8,000 MXN">$3,500 a $8,000 MXN</button>
+            <button class="opt" type="button" data-key="inversion" data-val="Más de $8,000 MXN">Más de $8,000 MXN</button>
+          </div>
+        </div>
+
+        <div class="nav-q">
+          <button class="btn btn-ghost btn-sm" type="button" id="prev" hidden>Atrás</button>
+          <button class="btn btn-primary btn-sm" type="button" id="next" disabled>Siguiente</button>
+        </div>
+
+        <div class="done" id="done" aria-live="polite">
+          <h3>Listo. Tu diagnóstico está por llegar.</h3>
+          <p>Se abrió WhatsApp con tus respuestas. Solo tienes que enviar el mensaje.</p>
+          <a class="btn btn-wa" id="send" href="#" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="wrap">
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq">
+        <details>
+          <summary>¿Necesito saber de cámara o de edición?</summary>
+          <p>No. Te acompaño desde la idea hasta la grabación, y te enseño a sentirte natural frente a la cámara.</p>
+        </details>
+        <details>
+          <summary>¿Qué papel juega la inteligencia artificial?</summary>
+          <p>La uso para investigar tendencias, ordenar ideas y diseñar la estrategia. El contenido sigue siendo tuyo y con tu voz.</p>
+        </details>
+        <details>
+          <summary>¿Cómo empiezo?</summary>
+          <p>Responde las 3 preguntas de arriba o escríbeme directo por WhatsApp. El diagnóstico es el primer paso.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="final">
+    <div class="wrap">
+      <h2>Deja de improvisar en redes.</h2>
+      <p class="sub">Tu contenido puede ser el vendedor que trabaja todos los días.</p>
+      <div class="cta-row">
+        <a class="btn btn-wa" data-wa="cierre" href="#">Escríbeme por WhatsApp</a>
+        <a class="btn btn-ghost" href="tarjeta.html">Ver mi tarjeta digital</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© jp.vidzz · Todos los derechos reservados</span>
+    <a href="https://instagram.com/jp.vidzz" target="_blank" rel="noopener">@jp.vidzz en Instagram</a>
+  </div>
+</footer>
+
+<script>
+  /* ====== CONFIGURACIÓN ======
+     Reemplaza el número por el WhatsApp real: código de país + número, sin +, espacios ni guiones.
+     Ejemplo México: 52 + 10 dígitos = 5212345678901 */
+  const WA_NUMBER = "529997470509";
+
+  const waLink = (text) =>
+    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+
+  // Botones de cierre y hero
+  const MSG_GENERAL = "Hola jp.vidzz, quiero mi diagnóstico de contenido.";
+  document.querySelectorAll("[data-wa]").forEach(a => {
+    a.href = waLink(MSG_GENERAL);
+    a.target = "_blank";
+    a.rel = "noopener";
+  });
+
+  // Funnel
+  const answers = {};
+  const steps = [...document.querySelectorAll(".q")];
+  let current = 0;
+  const bar = document.getElementById("bar");
+  const next = document.getElementById("next");
+  const prev = document.getElementById("prev");
+  const done = document.getElementById("done");
+  const send = document.getElementById("send");
+
+  function render(){
+    steps.forEach((s, i) => s.classList.toggle("on", i === current));
+    bar.style.width = ((current + 1) / steps.length * 100) + "%";
+    prev.hidden = current === 0;
+    next.textContent = current === steps.length - 1 ? "Enviar por WhatsApp" : "Siguiente";
+    const key = ["giro","freno","inversion"][current];
+    next.disabled = !answers[key];
+  }
+
+  document.querySelectorAll(".opt").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.key;
+      answers[key] = btn.dataset.val;
+      document.querySelectorAll(`.opt[data-key="${key}"]`).forEach(b =>
+        b.setAttribute("aria-pressed", b === btn ? "true" : "false"));
+      next.disabled = false;
+    });
+  });
+
+  next.addEventListener("click", () => {
+    if (current < steps.length - 1) {
+      current++;
+      render();
+      return;
+    }
+    const msg =
+      `Hola jp.vidzz, quiero mi diagnóstico.\n` +
+      `• Giro: ${answers.giro}\n` +
+      `• Lo que me frena: ${answers.freno}\n` +
+      `• Inversión: ${answers.inversion}`;
+    const url = waLink(msg);
+    send.href = url;
+    document.querySelector(".nav-q").hidden = true;
+    done.classList.add("on");
+    bar.style.width = "100%";
+    window.open(url, "_blank", "noopener");
+  });
+
+  prev.addEventListener("click", () => {
+    if (current > 0) { current--; render(); }
+  });
+  render();
+
+  // Tarjeta con inclinación según el mouse (solo escritorio)
+  const tilt = document.getElementById("tilt");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce && window.matchMedia("(pointer:fine)").matches) {
+    document.querySelector(".stage").addEventListener("mousemove", e => {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      tilt.style.setProperty("--ry", (x * 14).toFixed(2) + "deg");
+      tilt.style.setProperty("--rx", (-y * 14).toFixed(2) + "deg");
+    });
+    document.querySelector(".stage").addEventListener("mouseleave", () => {
+      tilt.style.setProperty("--rx", "0deg");
+      tilt.style.setProperty("--ry", "0deg");
+    });
+  }
+</script>
+</body>
+</html>
