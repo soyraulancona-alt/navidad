@@ -75,8 +75,8 @@
 
   /* REC fijo: acompaña el scroll como el indicador de una cámara */
   .rec{position:fixed;z-index:60;top:78px;left:14px;display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:rgba(4,7,15,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--linea);font-size:11.5px;color:rgba(243,247,255,.9);font-variant-numeric:tabular-nums;letter-spacing:.04em;pointer-events:none}
-  .rec b{width:9px;height:9px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 12px #ff3b3b;animation:blink 1.4s steps(2,jump-none) infinite}
-  @keyframes blink{50%{opacity:.25}}
+  .rec b{width:9px;height:9px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 12px #ff3b3b;animation:blink 1.4s linear infinite}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:.25}}
   @media(max-width:640px){.rec{top:74px;left:10px;font-size:10.5px;padding:4px 9px;gap:6px}.rec b{width:7px;height:7px}}
 
   /* Hero */
@@ -236,13 +236,13 @@
   .lines{width:78%;display:grid;gap:10px}
   .lines i{display:block;height:9px;border-radius:5px;background:linear-gradient(90deg,rgba(46,155,234,.9),rgba(127,227,238,.25))}
   .lines i:nth-child(1){width:92%}.lines i:nth-child(2){width:70%}.lines i:nth-child(3){width:84%}.lines i:nth-child(4){width:46%}
-  .lines i:last-child::after{content:"";display:inline-block;width:2px;height:15px;background:var(--aqua);margin:-3px 0 0 8px;vertical-align:middle;animation:blink 1s steps(2,jump-none) infinite}
+  .lines i:last-child::after{content:"";display:inline-block;width:2px;height:15px;background:var(--aqua);margin:-3px 0 0 8px;vertical-align:middle;animation:blink 1s linear infinite}
   .view{width:78%;height:78%;position:relative}
   .view::before,.view::after,.view i::before,.view i::after{content:"";position:absolute;width:20px;height:20px;border:2px solid var(--aqua)}
   .view::before{top:0;left:0;border-right:0;border-bottom:0}.view::after{top:0;right:0;border-left:0;border-bottom:0}
   .view i::before{bottom:0;left:0;border-right:0;border-top:0}.view i::after{bottom:0;right:0;border-left:0;border-top:0}
   .view em{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-style:normal;font-size:12px;display:flex;gap:7px;align-items:center;color:var(--blanco)}
-  .view em b{width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:blink 1.4s steps(2,jump-none) infinite}
+  .view em b{width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:blink 1.4s linear infinite}
   .bars{display:flex;align-items:flex-end;gap:9px;height:96px}
   .bars i{width:18px;border-radius:5px 5px 2px 2px;background:var(--grad);opacity:.95;transform-origin:bottom;animation:bar 2.4s ease-in-out infinite alternate}
   .bars i:nth-child(2){animation-delay:-.5s}.bars i:nth-child(3){animation-delay:-1s}.bars i:nth-child(4){animation-delay:-1.5s}.bars i:nth-child(5){animation-delay:-2s}
@@ -368,7 +368,7 @@
 
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .track,.rec b,.view em b,.radar::after,.lines i:last-child::after,.dots i,.msg,.summary,.bars i{animation:none}
+    .track,.view em b,.radar::after,.lines i:last-child::after,.dots i,.msg,.summary,.bars i{animation:none}
     .btn,.opt,.plan,.photo img,.photo::before,.photo::after{transition:none}
     .photo:hover .eq i,.photo.live .eq i{animation:none}
     .strip{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
@@ -837,7 +837,8 @@
     const f = Math.floor(ms / 40), s = Math.floor(f / 25);
     return [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60, f % 25].map(pad).join(":");
   }
-  if (!reduce) setInterval(() => { tc.textContent = tcText(performance.now() - tStart); }, 40);
+  // El REC corre siempre (también con "reducir movimiento" activado): es un indicador, no una animación decorativa
+  setInterval(() => { tc.textContent = tcText(performance.now() - tStart); }, 40);
 
   /* ====== Ondas del hero (canvas) ====== */
   const canvas = $("#waves"), ctx = canvas.getContext("2d");
