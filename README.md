@@ -1,16 +1,21 @@
 # jp.vidzz · Landing y tarjeta digital
 
-Dos páginas estáticas, sin build ni dependencias locales (solo la fuente Inter desde Google Fonts).
+Páginas estáticas, sin build. Solo usan las fuentes Inter e Inter Tight de Google Fonts.
 
-- `index.html`: landing con funnel de 3 preguntas que abre WhatsApp con las respuestas ya escritas.
-- `tarjeta.html`: tarjeta digital con botón de WhatsApp y descarga de contacto (vCard).
+- `index.html`: landing (hero, servicios, marcas, proyectos, línea de tiempo, planes y cotizador, asistente).
+- `tarjeta.html`: tarjeta digital (WhatsApp, guardar contacto, compartir, QR).
+- `assets/`: logos, fotos de servicios (`srv-*`, `servicio-*`), fotogramas de proyectos (`proy-*`) y logos de marcas (`marcas/`).
 
-## Antes de publicar
+## Cosas que se cambian en un solo lugar (bloque `CONFIGURACIÓN` del script de `index.html`)
 
-1. El número de WhatsApp ya está configurado en `WA_NUMBER` (index.html y tarjeta.html).
-2. Confirma los precios ($3,500 y $14,000 MXN) y el enlace de Instagram.
-3. Revisa el copy de las secciones de transformación y FAQ con jp.vidzz.
+- `WA_NUMBER`: WhatsApp (también en `tarjeta.html`).
+- `PLANS`: nombres, frases, precios (sin pauta / con pauta) y lo que incluye cada plan.
+- `CARD_FEE`: comisión por pago con tarjeta (4%).
+- `TIMELINE_IMG`: ruta de la captura real de la línea de tiempo de edición (si se deja vacío se muestra la animada).
+- `REEL_VIDEO`: ruta del video compilatorio. Mientras esté vacío, ese bloque no se muestra.
+- `PHOTO_URL` (en `tarjeta.html`): retrato para el aro de la tarjeta.
 
-## Hosting
+## Notas de contenido
 
-Son archivos HTML estáticos. Se pueden subir a Vercel, Netlify o GitHub Pages sin configuración.
+- Las condiciones internas (duración de sesión, rondas de revisión, tiempos de entrega, pauta pagada directo a la plataforma,
+  piezas que no se acumulan y mínimo de 3 meses) no se muestran en la página; se acuerdan por escrito con el cliente.
